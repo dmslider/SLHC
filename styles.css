@@ -159,7 +159,7 @@
         }
 
         .carousel-slide.slide-1 {
-            background-image: url(/img/freetown.jpg);
+            background-image: url(img/freetown.jpg);
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -168,7 +168,7 @@
         }
 
         .carousel-slide.slide-2 {
-            background-image: url(/img/slbeaches.jpg);
+            background-image: url(img/slbeaches.jpg);
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -177,7 +177,7 @@
         }
 
         .carousel-slide.slide-3 {
-            background-image: url(/img/slchildren.jpg);
+            background-image: url(img/slchildren.jpg);
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -195,7 +195,7 @@
         }
 
         .carousel-slide.slide-5 {
-            background-image: url(/img/agriculture.jpg);
+            background-image: url(img/agriculture.jpg);
             background-size: cover;
             width: 100%;
             height: 100%;
