@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Embassy of the Republic of Sierra Leone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/jpeg" href="img/slhc_logo.jpg">
+    <link rel="stylesheet" href="https://leaflet.js.org/examples/css/leaflet.css" />
+    <script src="https://leaflet.js.org/examples/js/leaflet.js"></script>
+    <script src="scripts.js" defer></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .contact-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #1e7e34;
+        }
+
+        .contact-card h3 {
+            color: #1e7e34;
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .contact-card p {
+            margin: 10px 0;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .working-hours {
+            background: #e8f5e9;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #1e7e34;
+        }
+
+        .working-hours h3 {
+            color: #1e7e34;
+            margin-top: 0;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #d4edda;
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-item strong {
+            color: #2e5c3e;
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e7e34;
+            box-shadow: 0 0 0 3px rgba(30, 126, 52, 0.1);
+        }
+
+        .form-submit {
+            background: #1e7e34;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .form-submit:hover {
+            background: #166b2a;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .method-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .method-card h4 {
+            color: #1e7e34;
+            margin: 15px 0 10px;
+        }
+
+        .method-card p {
+            color: #4a5568;
+            margin: 0;
+        }
+
+        .method-icon {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>📞 Emergency: +353 XX XXX XXXX</span>
+                <span>✉️ info@slhc-ireland.ie</span>
+            </div>
+            <div class="top-bar-right">
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img src="img/slhc_logo.jpg" alt="Sierra Leone Embassy Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>Embassy of the Republic of Sierra Leone</h1>
+                    <p>Ireland</p>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="travel.html">Travel</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section style="max-width: 1200px; margin: 60px auto; padding: 0 20px;">
+        <div class="service-header">
+            <h2>📍 Contact Us</h2>
+            <p>Get in touch with the Embassy of the Republic of Sierra Leone</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="contact-content">
+        <!-- Map -->
+        <div id="map"></div>
+
+        <!-- Contact Methods -->
+        <div class="contact-methods">
+            <div class="method-card">
+                <div class="method-icon">📞</div>
+                <h4>Phone</h4>
+                <p>+353 1 XXX XXXX<br>+353 1 XXX XXXX</p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon">✉️</div>
+                <h4>Email</h4>
+                <p>info@slhc-ireland.ie<br>consular@slhc-ireland.ie</p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon">🚨</div>
+                <h4>Emergency</h4>
+                <p>24/7 Hotline<br>+353 XX XXX XXXX</p>
+            </div>
+        </div>
+
+        <!-- Contact Details Grid -->
+        <div class="contact-grid">
+            <!-- Contact Information -->
+            <div>
+                <div class="contact-card">
+                    <h3>📮 Physical Address</h3>
+                    <p>
+                        Embassy of the Republic of Sierra Leone<br>
+                        [Street Address]<br>
+                        Dublin<br>
+                        D0X XXXX<br>
+                        Ireland
+                    </p>
+                </div>
+
+                <div class="contact-card" style="margin-top: 20px;">
+                    <h3>💬 Social Media</h3>
+                    <p>
+                        <strong>Facebook:</strong> /SierraLeoneEmbassy<br>
+                        <strong>Twitter:</strong> @SLEmbassyIreland<br>
+                        <strong>Instagram:</strong> @slembassyireland
+                    </p>
+                </div>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="working-hours">
+                <h3>🕐 Working Hours</h3>
+                
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: #1e7e34; margin-bottom: 15px;">General Inquiries</h4>
+                    <div class="hours-item">
+                        <strong>Monday - Friday:</strong>
+                        <span>9:00 AM - 4:00 PM</span>
+                    </div>
+                    <div class="hours-item">
+                        <strong>Saturday - Sunday:</strong>
+                        <span>Closed</span>
+                    </div>
+                </div>
+
+                <div style="border-top: 2px solid #d4edda; padding-top: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #1e7e34; margin-bottom: 15px;">Visa Applications</h4>
+                    <div class="hours-item">
+                        <strong>Monday - Friday:</strong>
+                        <span>9:00 AM - 12:00 PM</span>
+                    </div>
+                </div>
+
+                <div style="border-top: 2px solid #d4edda; padding-top: 20px; margin-bottom: 20px;">
+                    <h4 style="color: #1e7e34; margin-bottom: 15px;">Passport Collection</h4>
+                    <div class="hours-item">
+                        <strong>Monday - Friday:</strong>
+                        <span>2:00 PM - 4:00 PM</span>
+                    </div>
+                </div>
+
+                <div style="border-top: 2px solid #d4edda; padding-top: 20px;">
+                    <h4 style="color: #1e7e34; margin-bottom: 15px;">Emergency Services</h4>
+                    <div class="hours-item">
+                        <strong>24/7 Availability:</strong>
+                        <span>Always Open</span>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px; font-size: 14px; color: #666; border-top: 2px solid #d4edda; padding-top: 20px;">
+                    <strong>Note:</strong> Closed on public holidays. Please call ahead to confirm availability during holiday periods.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="form-section">
+            <h3 style="color: #1e7e34; margin-top: 0;">Send us a Message</h3>
+            <p style="color: #4a5568; margin-bottom: 30px;">Fill out the form below and we'll get back to you as soon as possible.</p>
+            
+            <form id="contactForm">
+                <div class="contact-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Additional Information -->
+        <div style="background: #f0f7f4; padding: 30px; border-radius: 8px; margin: 40px 0;">
+            <h3 style="color: #1e7e34; margin-top: 0;">❓ Frequently Asked Questions</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div>
+                    <h4 style="color: #2d3748;">Do I need an appointment?</h4>
+                    <p style="color: #4a5568;">Yes, all visa and passport services require an appointment. General inquiries can be made during office hours.</p>
+                </div>
+                <div>
+                    <h4 style="color: #2d3748;">What payment methods do you accept?</h4>
+                    <p style="color: #4a5568;">We accept cash, bank transfers, and debit cards. Credit cards are not accepted.</p>
+                </div>
+                <div>
+                    <h4 style="color: #2d3748;">Can I visit without an appointment?</h4>
+                    <p style="color: #4a5568;">For general inquiries, yes. For services, appointments are mandatory.</p>
+                </div>
+                <div>
+                    <h4 style="color: #2d3748;">What should I bring?</h4>
+                    <p style="color: #4a5568;">Bring your passport, completed forms, and any required supporting documents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Embassy of the Republic of Sierra Leone<br>
+                    Dublin, Ireland<br>
+                    Phone: +353 XX XXX XXXX<br>
+                    Email: info@slhc-ireland.ie</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="visa-services.html">Visa Application</a></li>
+                        <li><a href="passport-services.html">Passport Services</a></li>
+                        <li><a href="travel.html">Travel Advisory</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Download Forms</a></li>
+                        <li><a href="#">Fee Schedule</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated with our latest news</p>
+                    <input type="email" placeholder="Your email" aria-label="Email address">
+                    <button>Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Embassy of the Republic of Sierra Leone in Ireland. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Initialize map
+        const map = L.map('map').setView([53.3498, -6.2603], 13); // Dublin coordinates
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Add marker for the embassy (Dublin city center as placeholder)
+        const marker = L.marker([53.3498, -6.2603]).addTo(map);
+        marker.bindPopup('<strong>Embassy of Sierra Leone</strong><br>Dublin, Ireland<br>Phone: +353 XX XXX XXXX').openPopup();
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            
+            alert(`Thank you for your message, ${name}!\n\nWe have received your inquiry about "${subject}" and will respond to ${email} as soon as possible.`);
+            
+            contactForm.reset();
+        });
+
+        // Newsletter subscription
+        const newsletterForm = document.querySelector('.newsletter');
+        if (newsletterForm) {
+            const newsletterButton = newsletterForm.querySelector('button');
+            const newsletterInput = newsletterForm.querySelector('input');
+
+            newsletterButton.addEventListener('click', () => {
+                const email = newsletterInput.value;
+                if (email && email.includes('@')) {
+                    alert('Thank you for subscribing! You will receive updates at: ' + email);
+                    newsletterInput.value = '';
+                } else {
+                    alert('Please enter a valid email address');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

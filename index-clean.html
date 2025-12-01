@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/jpeg" href="img/slhc_logo.jpg">
     <script src="scripts.js" defer></script>
-    <!-- Preload carousel images -->
-    <link rel="preload" as="image" href="img/slireland.jpg">
-    <link rel="preload" as="image" href="img/slpassport.jpg">
-    <link rel="preload" as="image" href="img/slhc_logo1.jpg">
 </head>
 <body>
     <!-- Top Bar -->
@@ -45,7 +41,8 @@
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="travel.html">Travel</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
         </div>
@@ -53,29 +50,16 @@
 
     <!-- Hero Section - Carousel -->
     <section class="hero" id="home">
-        <!-- Dot Indicators -->
-            <div class="carousel-controls">
-                <button class="carousel-dot active" data-slide="0" aria-label="Go to slide 1"></button>
-                <button class="carousel-dot" data-slide="1" aria-label="Go to slide 2"></button>
-                <button class="carousel-dot" data-slide="2" aria-label="Go to slide 3"></button>
-                <button class="carousel-dot" data-slide="3" aria-label="Go to slide 4"></button>
-                <button class="carousel-dot" data-slide="4" aria-label="Go to slide 5"></button>
-            </div>
-            <button class="carousel-arrow prev" aria-label="Previous slide">‹</button>
-            <button class="carousel-arrow next" aria-label="Next slide">›</button>
-
         <div class="carousel-container">
             <!-- Slide 1 -->
             <div class="carousel-slide slide-1 active">
                 <div class="container">
-                    <div style="position:relative;display:flex;align-items:center;gap:24px;">
-                        <div style="flex:1;">
-                            <h2>Welcome to the Embassy of The Republic of Sierra Leone - Ireland</h2>
-                            <p>Serving Sierra Leoneans and friends of Sierra Leone in Ireland with excellence and dedication.</p>
-                            <div class="hero-buttons">
-                                <a href="#appointment" class="btn btn-primary">Book Appointment</a>
-                                <a href="#contact" class="btn btn-secondary">Contact Us</a>
-                            </div>
+                    <div>
+                        <h2>Welcome to the Embassy of the Republic of Sierra Leone</h2>
+                        <p>Serving Sierra Leoneans and friends of Sierra Leone in Ireland with excellence and dedication.</p>
+                        <div class="hero-buttons">
+                            <a href="#appointment" class="btn btn-primary">Book Appointment</a>
+                            <a href="#contact" class="btn btn-secondary">Contact Us</a>
                         </div>
                     </div>
                     <div class="office-hours">
@@ -173,7 +157,18 @@
                 </div>
             </div>
 
-            
+            <!-- Navigation Arrows -->
+            <button class="carousel-arrow prev" aria-label="Previous slide">‹</button>
+            <button class="carousel-arrow next" aria-label="Next slide">›</button>
+
+            <!-- Dot Indicators -->
+            <div class="carousel-controls">
+                <button class="carousel-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+                <button class="carousel-dot" data-slide="1" aria-label="Go to slide 2"></button>
+                <button class="carousel-dot" data-slide="2" aria-label="Go to slide 3"></button>
+                <button class="carousel-dot" data-slide="3" aria-label="Go to slide 4"></button>
+                <button class="carousel-dot" data-slide="4" aria-label="Go to slide 5"></button>
+            </div>
         </div>
     </section>
 
@@ -207,7 +202,7 @@
     <section class="notice-banner">
         <div class="notice">
             <h3>📢 Important Notice</h3>
-            <p>The High Commission will be closed on December 25th and 26th for Christmas holidays. For urgent matters, please contact our emergency line.</p>
+            <p>The Embassy will be closed on December 25th and 26th for Christmas holidays. For urgent matters, please contact our emergency line.</p>
         </div>
     </section>
 
@@ -216,7 +211,7 @@
         <div class="about-grid">
             <div class="about-content">
                 <h2>About Our Mission</h2>
-                <p>The High Commission of Sierra Leone in Ireland was established to represent the interests of Sierra Leone and its citizens in the Republic of Ireland. We are committed to fostering strong bilateral relations and providing excellent consular services.</p>
+                <p>The Embassy of the Republic of Sierra Leone in Ireland was established to represent the interests of Sierra Leone and its citizens in the Republic of Ireland. We are committed to fostering strong bilateral relations and providing excellent consular services.</p>
                 <p>Our mission extends beyond traditional diplomatic functions to include promoting trade, investment, tourism, and cultural exchanges between Sierra Leone and Ireland.</p>
                 <a href="#" class="learn-more">Learn More →</a>
             </div>
@@ -277,41 +272,21 @@
     </footer>
 
     <script>
-        // Preload carousel images for faster display
-        const imagesToPreload = [
-            'img/slireland.jpg',
-            'img/slpassport.jpg',
-            'img/slhc_logo1.jpg'
-        ];
-
-        imagesToPreload.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-
-        // Cache DOM elements
+        // Mobile menu toggle
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.carousel-dot');
-        const carouselArrowPrev = document.querySelector('.carousel-arrow.prev');
-        const carouselArrowNext = document.querySelector('.carousel-arrow.next');
-        const carouselContainer = document.querySelector('.carousel-container');
-        const newsletterForm = document.querySelector('.newsletter');
-        const newsletterButton = newsletterForm.querySelector('button');
-        const newsletterInput = newsletterForm.querySelector('input');
 
-        // Carousel variables
-        let currentSlide = 0;
-        const totalSlides = slides.length;
-        let autoplayInterval;
-
-        // Mobile menu toggle
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
 
-        // Carousel function
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+        let autoplayInterval;
+
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
@@ -344,14 +319,13 @@
             clearInterval(autoplayInterval);
         }
 
-        // Carousel event listeners
-        carouselArrowPrev.addEventListener('click', () => {
+        document.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
             prevSlide();
             stopAutoplay();
             startAutoplay();
         });
 
-        carouselArrowNext.addEventListener('click', () => {
+        document.querySelector('.carousel-arrow.next').addEventListener('click', () => {
             nextSlide();
             stopAutoplay();
             startAutoplay();
@@ -365,42 +339,12 @@
             });
         });
 
+        const carouselContainer = document.querySelector('.carousel-container');
         carouselContainer.addEventListener('mouseenter', stopAutoplay);
         carouselContainer.addEventListener('mouseleave', startAutoplay);
 
-        // Touch swipe functionality for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        carouselContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            stopAutoplay();
-        });
-
-        carouselContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-            startAutoplay();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swiped left - show next slide
-                    nextSlide();
-                } else {
-                    // Swiped right - show previous slide
-                    prevSlide();
-                }
-            }
-        }
-
         startAutoplay();
 
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -416,7 +360,10 @@
             });
         });
 
-        // Newsletter subscription
+        const newsletterForm = document.querySelector('.newsletter');
+        const newsletterButton = newsletterForm.querySelector('button');
+        const newsletterInput = newsletterForm.querySelector('input');
+
         newsletterButton.addEventListener('click', () => {
             const email = newsletterInput.value;
             if (email && email.includes('@')) {
@@ -427,7 +374,6 @@
             }
         });
 
-        // Keyboard navigation for carousel
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
